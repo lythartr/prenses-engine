@@ -1,27 +1,25 @@
-name: Build APK
-on: [push]
+[app]
+title = Prenses Engine Pro
+package.name = prensesengine
+package.domain = org.efendim
+source.dir = .
+source.include_exts = py,png,jpg,kv,atlas
+version = 1.0
 
-jobs:
-  build:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+# Gereksinimler: OpenCV (opencv4android) eklendi
+requirements = python3,kivy==2.2.1,kivymd==1.1.1,pillow,sdl2_ttf,opencv4android
 
-      - name: Install Dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y git zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
-          python3 -m pip install --user --upgrade Cython==0.29.33 virtualenv buildozer
+orientation = portrait
+fullscreen = 1
 
-      - name: Build with Buildozer
-        run: |
-          export PATH=$PATH:$HOME/.local/bin
-          # Buildozer'ı sessiz modda çalıştır ve her şeye 'evet' de
-          yes | buildozer -v android debug
-        
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: PrensesEngine-APK
-          path: bin/*.apk
+# İzinler: Yüz tanıma ve hareket algılama için kamera şart
+android.permissions = CAMERA, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE, MANAGE_EXTERNAL_STORAGE
+
+# Android mimarisi (Güncel telefonlar için)
+android.archs = arm64-v8a
+android.allow_backup = True
+android.accept_sdk_license = True
+
+# NDK ve SDK (Hata almamak için sabitliyoruz)
+android.ndk = 25b
+android.api = 33
