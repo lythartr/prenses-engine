@@ -1,4 +1,4 @@
-[app]
+
 title = Prenses Engine Pro
 package.name = prensesengine
 package.domain = org.efendim
@@ -6,21 +6,23 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 version = 1.0
 
-# Gerekli Kütüphaneler
-requirements = python3,kivy==2.2.1,kivymd==1.1.1,pillow,sdl2_ttf
+# GEREKSİNİMLER: OpenCV ve Android kütüphaneleri eklendi
+requirements = python3,kivy==2.2.1,kivymd==1.1.1,pillow,sdl2_ttf,opencv4android,android
 
 orientation = portrait
 fullscreen = 1
 
-# İzinler
+# İZİNLER: Kamera, Ses ve Depolama (Android 11+ MANAGE_EXTERNAL_STORAGE dahil)
 android.permissions = CAMERA, RECORD_AUDIO, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE, MANAGE_EXTERNAL_STORAGE
 android.api = 33
 android.minapi = 21
 android.sdk = 33
+android.ndk = 25b
+android.accept_sdk_license = True
 
-# Mimari (Modern telefonlar için)
-android.archs = arm64-v8a, armeabi-v7a
+# Mimariler
+android.archs = arm64-v8a
 
-# Log ayarları
+[buildozer]
 log_level = 2
-warn_on_root = 0
+warn_on_root = 1
