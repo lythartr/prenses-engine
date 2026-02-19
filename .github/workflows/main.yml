@@ -1,0 +1,20 @@
+name: Build APK
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Buildozer Action
+        uses: ArtemSerebrenninkov/buildozer-action@v1
+        with:
+          workdir: .
+          buildozer_version: master
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: PrensesEngine-APK
+          path: bin/*.apk
